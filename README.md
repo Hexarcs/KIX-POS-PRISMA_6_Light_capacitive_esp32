@@ -61,6 +61,63 @@ apropriados. O firmware assume **rotação `2`** (retrato).
 
 ---
 
+## Compilar e gravar via Arduino CLI
+
+```bash
+# =====================================================================
+# AVISO: Estes comandos DEVEM ser executados de dentro da pasta do projeto 
+# (ex: ~/pos_kix_capacitivo_tamc_gt911/pos_kix_capacitivo_tamc_gt911)
+# onde estão o arquivo .ino e a pasta ./libraries. O uso do ponto (.) 
+# indica o diretório atual de trabalho.
+# =====================================================================
+
+# === COMPILAR ===
+arduino-cli compile \
+  --fqbn esp32:esp32:esp32:PartitionScheme=huge_app \
+  --libraries ./libraries \
+  --jobs 4 \
+  --build-property compiler.c.extra_flags="-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-implicit-function-declaration" \
+  --verbose \
+  .
+
+# === UPLOAD (GRAVAR NA PLACA) ===
+arduino-cli upload \
+  -p /dev/ttyUSB0 \
+  --fqbn esp32:esp32:esp32:PartitionScheme=huge_app \
+  .
+
+# === COMPILAR E GRAVAR EM UMA SÓ LINHA ===
+arduino-cli compile \
+  --fqbn esp32:esp32:esp32:PartitionScheme=huge_app \
+  --libraries ./libraries \
+  --jobs 4 \
+  --build-property compiler.c.extra_flags="-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-implicit-function-declaration" \
+  --verbose \
+  . \
+&& \
+arduino-cli upload \
+  -p /dev/ttyUSB0 \
+  --fqbn esp32:esp32:esp32:PartitionScheme=huge_app \
+  .
+
+# === MONITOR SERIAL ===
+arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
+
+# === EXPORTAR BINÁRIO ===
+arduino-cli compile \
+  --verbose \
+  --fqbn esp32:esp32:esp32:PartitionScheme=huge_app \
+  --libraries ./libraries \
+  --jobs 4 \
+  --build-property compiler.c.extra_flags="-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-implicit-function-declaration" \
+  --output-dir ./build_output \
+  .
+```
+
+> Os mesmos comandos estão em [`comandos_arduino_cli_upload.txt`](comandos_arduino_cli_upload.txt).
+
+---
+
 ## Como funciona (resumo)
 
 ```
