@@ -66,7 +66,7 @@ apropriados. O firmware assume **rotação `2`** (retrato).
 ```bash
 # =====================================================================
 # AVISO: Estes comandos DEVEM ser executados de dentro da pasta do projeto 
-# (ex: ~/pos_kix_capacitivo_tamc_gt911/pos_kix_capacitivo_tamc_gt911)
+# (ex: ~/kix-pos)
 # onde estão o arquivo .ino e a pasta ./libraries. O uso do ponto (.) 
 # indica o diretório atual de trabalho.
 # =====================================================================
